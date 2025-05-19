@@ -9,6 +9,6 @@ class SupplierListCreateAPIView(ListCreateAPIView):
     serializer_class = SupplierSerializer
 
 
-class ProductRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+class SupplierRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Supplier.objects.all()
     serializer_class = SupplierSerializer
