@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  zapstore-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: zapstore-bot
+    command: uvicorn app:app --host 0.0.0.0 --port 9000 --reload
+    volumes:
+      - .:/app
+    ports:
+      - "9000:9000"
+    env_file:
+      - .env
