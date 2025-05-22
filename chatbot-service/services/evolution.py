@@ -1,24 +1,26 @@
-import os
 import requests
-from dotenv import load_dotenv
 
+from config.environments import (
+    EVOLUTION_API_URL,
+    AUTHENTICATION_API_KEY
+)
 
-load_dotenv()
 
 class Evolution:
 
     def __init__(self):
-        self.__api_url = 'http://evolution-api:9000'
-        self.__api_key = os.getenv('AUTHENTICATION_API_KEY')
+        self.__api_url = EVOLUTION_API_URL
+        self.__api_key = AUTHENTICATION_API_KEY
 
     def send_message(self, number_contact, message):
-        url = f'{self.__api_url}/message/sendText/ZapStore-Assistance'
+        url = f'{self.__api_url}/message/sendText/ZapStore-Assistant'
 
         headers = {
-            'apikey': self.__api_key
+            'apikey': self.__api_key,
+            'Context-Type': 'application/json'
         }
 
-        body = {
+        payload = {
             'number': number_contact,
             'text': message
         }
@@ -26,5 +28,5 @@ class Evolution:
         requests.post(
             url=url,
             headers=headers,
-            data=body
+            json=payload
         )
