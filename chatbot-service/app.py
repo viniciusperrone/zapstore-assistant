@@ -1,7 +1,12 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from models.message import Message
+
 
 app = FastAPI()
 
-@app.get("/")
-def ping():
-    return {"msg": "ZapStore Bot is running!"}
+@app.post("/chatbot/assistant")
+async def root(request: Request):
+    print(request.json())
+
+    return {'status': 'ok'}
+
