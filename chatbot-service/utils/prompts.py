@@ -16,6 +16,12 @@ PROMPT_DETECT_TYPE_MESSAGE = """
 
     E depois retorne um prompt customizado para uma nova chamada para o sistema, e não para o humano (Obs: se o tipo for 'FIRST_INTERACTION' ou 'UNKNOWN' deve ser nulo).
 
+    Exemplo de prompt customizado:
+
+    Mensagem enviada por usuário: "Quantos notebooks estão disponíveis?"
+
+    prompt de retorna: Retornar todos produtos da categoria de notebooks com a seguinte base de dados.
+
     Sua resposta deve ser um json, exemplo:
 
     {
