@@ -1,8 +1,14 @@
+import json
 import requests
+
 from openai import OpenAI
 
 from config.environments import API_URL, OPENAI_API_KEY
-from utils.prompts import PROMPT_AGENT_SYSTEM
+from utils.kind_message import MessageType
+from utils.prompts import (
+    PROMPT_RESUME_AGENT_SYSTEM,
+    PROMPT_DETECT_TYPE_MESSAGE
+)
 
 
 class Agent:
@@ -20,8 +26,35 @@ class Agent:
 
         return data.json()
 
-    def __detect_type_message(self):
-        return ''
+    def __invoke_llm(self, system_prompt, user_prompt):
+        response = self.__client.chat.completions.create(
+            model='gpt-3.5-turbo',
+            messages=[
+                {
+                    'role': 'system',
+                    'content': system_prompt
+                },
+                {
+                    'role': 'user',
+                    'content': user_prompt
+                }
+            ]
+        )
+
+        return response.choices[0].message.content
+
+    def detect_type_message(self, message):
+        response = self.__invoke_llm(user_prompt=message, system_prompt=PROMPT_DETECT_TYPE_MESSAGE)
+
+        try:
+            return json.loads(response)
+
+        except json.JSONDecodeError:
+
+            return {
+                'type': MessageType.UNKNOWN,
+                'output': None
+            }
 
     def invoke(self, received_message: str) -> None:
         response = self.__client.chat.completions.create(
@@ -29,7 +62,7 @@ class Agent:
             messages=[
                 {
                     'role': 'system',
-                    'content': PROMPT_AGENT_SYSTEM
+                    'content': PROMPT_RESUME_AGENT_SYSTEM
                 },
                 {
                     'role': 'user',
