@@ -7,7 +7,8 @@ SECRET_KEY = 'django-insecure-lmm7c!4fv^^*5!k-=+9uue%r+is*u2=wgx%+_rm!v9m3!v#4!r
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# host.docker.internal
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -17,6 +18,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_filters',
 
     'categories',
     'brands',
@@ -25,6 +27,12 @@ INSTALLED_APPS = [
     'inventory',
     'sales'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
