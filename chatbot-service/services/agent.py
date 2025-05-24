@@ -56,19 +56,23 @@ class Agent:
                 'output': None
             }
 
-    def invoke(self, received_message: str) -> None:
+    def invoke(self, received_message: str, context: list[str] | None = None) -> None:
+        messages = [
+            {
+                'role': 'system',
+                'content': PROMPT_RESUME_AGENT_SYSTEM
+            }
+        ]
+
+        if context:
+            for message in context:
+                messages.append({'role': 'user', 'content': message})
+
+        messages.append({'role': 'user', 'content': received_message})
+
         response = self.__client.chat.completions.create(
             model='gpt-3.5-turbo',
-            messages=[
-                {
-                    'role': 'system',
-                    'content': PROMPT_RESUME_AGENT_SYSTEM
-                },
-                {
-                    'role': 'user',
-                    'content': received_message
-                }
-            ]
+            messages=messages
         )
 
         return response.choices[0].message.content
