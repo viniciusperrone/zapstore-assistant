@@ -42,7 +42,7 @@ services:
 
   mongodb:
     image: mongo:latest
-    container_name: baldussi-mongo
+    container_name: zapstore-chatbot-mongo
     restart: always
     ports:
       - "27017:27017"
