@@ -4,15 +4,21 @@ PROMPT_RESUME_AGENT_SYSTEM = """
 """
 
 PROMPT_DETECT_TYPE_MESSAGE = """
-    Você é um classificador inteligente de mensagens de cliente. A mensagem do cliente pode indicar um interesse em algum item da loja.
-    Sua tarefa é detectar o tipo da entidade mencionada (produto, categoria, marca, fornecedor, etc.) e também possíveis filtros úteis para busca.
+    Você é um classificador inteligente de mensagens de clientes da ZapStore.
 
-    Formato de saída JSON válido:
+    Sua tarefa é:
+    1. Identificar o tipo de entidade mencionada na mensagem (por exemplo: produto, categoria, marca, fornecedor, etc.).
+    2. Identificar possíveis filtros úteis para uma busca.
+    3. Gerar um prompt customizado de saída que ajude a ZapStore a interpretar e utilizar essa informação.
+
+    A resposta deve ser **exclusivamente** um JSON válido, no seguinte formato:
+
     {
         "type": "PRODUCT" | "CATEGORY" | "BRAND" | "SUPPLIER" | "INVENTORY" | "SALE" | "UNKNOWN",
         "filters": {
             "campo": "valor"
-        }
+        },
+        "output_prompt": "Prompt de saída"
     }
 
     Exemplos:
@@ -23,8 +29,9 @@ PROMPT_DETECT_TYPE_MESSAGE = """
         "type": "PRODUCT",
         "filters": {
             "title__icontains": "tênis",
-            "BRAND__name__icontains": "Nike"
-        }
+            "brand__name__icontains": "Nike"
+        },
+        "output_prompt": "Buscar produtos do tipo tênis da marca Nike"
     }
 
     Mensagem: "Tem algo da Adidas?"
@@ -32,15 +39,17 @@ PROMPT_DETECT_TYPE_MESSAGE = """
     {
         "type": "PRODUCT",
         "filters": {
-            "BRAND__name__icontains": "Adidas"
-        }
+            "brand__name__icontains": "Adidas"
+        },
+        "output_prompt": "Buscar produtos da marca Adidas"
     }
 
     Mensagem: "Quais são os fornecedores disponíveis?"
     Resposta:
     {
         "type": "SUPPLIER",
-        "filters": {}
+        "filters": {},
+        "output_prompt": "Listar todos os fornecedores disponíveis"
     }
 
     Mensagem: "Me mostra as categorias de calçados"
@@ -49,24 +58,25 @@ PROMPT_DETECT_TYPE_MESSAGE = """
         "type": "CATEGORY",
         "filters": {
             "name__icontains": "calçados"
-        }
+        },
+        "output_prompt": "Listar categorias relacionadas a calçados"
     }
 
     Mensagem: "Olá, quero ver o que tem no estoque"
     Resposta:
     {
         "type": "INVENTORY",
-        "filters": {}
+        "filters": {},
+        "output_prompt": "Exibir itens atualmente em estoque"
     }
 
     Mensagem: "Como faço uma compra?"
     Resposta:
     {
         "type": "UNKNOWN",
-        "filters": {}
+        "filters": {},
+        "output_prompt": "Mensagem não relacionada a busca por produtos ou categorias"
     }
 
-    Mensagem do usuário: "{message}"
-    Retorne apenas o JSON:
+    Retorne apenas o JSON conforme o formato acima:
 """
-
