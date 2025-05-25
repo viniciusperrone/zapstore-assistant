@@ -8,9 +8,46 @@ class Catalog:
     def __init__(self):
         self.__api_url = API_URL
 
-    def get_all_data(self):
-        response = requests.get(self.__api_url)
+    def __get(self, endpoint: str, params: dict | None = None):
+        response = requests.get(f"{self.__api_url}/{endpoint}", params=params)
 
-        data = response.json()
+        response.raise_for_status()
 
-        return data
+        return response.json()
+
+    def get_products(self, filters: dict = None):
+        return self.__get(
+            endpoint='product',
+            params=filters
+        )
+
+
+    def get_brands(self, filters: dict = None):
+        return self.__get(
+            endpoint='brand',
+            params=filters
+        )
+
+    def get_categories(self, filters: dict = None):
+        return self.__get(
+            endpoint='category',
+            params=filters
+        )
+
+    def get_suppliers(self, filters: dict = None):
+        return self.__get(
+            endpoint='supplier',
+            params=filters
+        )
+
+    def get_inventory(self, filters: dict = None):
+        return self.__get(
+            endpoint='inventory/inflow',
+            params=filters
+        )
+
+    def get_sales(self, filters: dict = None):
+        return self.__get(
+            endpoint='sales',
+            params=filters
+        )
