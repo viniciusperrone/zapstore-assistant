@@ -4,28 +4,69 @@ PROMPT_RESUME_AGENT_SYSTEM = """
 """
 
 PROMPT_DETECT_TYPE_MESSAGE = """
-    {{resume}}
+    Você é um classificador inteligente de mensagens de cliente. A mensagem do cliente pode indicar um interesse em algum item da loja.
+    Sua tarefa é detectar o tipo da entidade mencionada (produto, categoria, marca, fornecedor, etc.) e também possíveis filtros úteis para busca.
 
-    Indetifique a intenção da mensagem, com os seguintes tipos e exemplos:
-        - 'FIRST_INTERACTION': Comprimento (exemplo: Olá, tudo bem? Boa noite)
-        - 'PRODUCTS': Pergunta sobre qualquer produtos, sem falar especificamente.
-        - 'SPECIFIC_PRODUCT': Algum produto (exemplo: Notebook Dell Inspiron)
-        - 'INFORMATION_ABOUT_BRANDS': Pergunta sobre marcas (exemplo: Tem a marca da Logitech?; Quais marcas vocês vendem?)
-        - 'CHEAPER_PRODUCTS': Estatísticas sobre produtos (exemplo: Produtos mais baratos, Produtos mais vendidos)
-        - 'UNKNOWN': Mensagem sem contexto com a ZapStore (exemplo: Já assistiu o filme da Marvel?)
-
-    E depois retorne um prompt customizado para uma nova chamada para o sistema, e não para o humano (Obs: se o tipo for 'FIRST_INTERACTION' ou 'UNKNOWN' deve ser nulo).
-
-    Exemplo de prompt customizado:
-
-    Mensagem enviada por usuário: "Quantos notebooks estão disponíveis?"
-
-    prompt de retorna: Retornar todos produtos da categoria de notebooks com a seguinte base de dados.
-
-    Sua resposta deve ser um json, exemplo:
-
+    Formato de saída JSON válido:
     {
-        "type": "FIRST_INTERACTION",
-        "output": "Exemplo de prompt de saída"
+        "type": "product" | "category" | "brand" | "supplier" | "inventory" | "sale" | "unknown",
+        "filters": {
+            "campo": "valor"
+        }
     }
-""".replace('{{resume}}', PROMPT_RESUME_AGENT_SYSTEM)
+
+    Exemplos:
+
+    Mensagem: "Quero ver todos os tênis da Nike"
+    Resposta:
+    {
+        "type": "product",
+        "filters": {
+            "title__icontains": "tênis",
+            "brand__name__icontains": "Nike"
+        }
+    }
+
+    Mensagem: "Tem algo da Adidas?"
+    Resposta:
+    {
+        "type": "product",
+        "filters": {
+            "brand__name__icontains": "Adidas"
+        }
+    }
+
+    Mensagem: "Quais são os fornecedores disponíveis?"
+    Resposta:
+    {
+        "type": "supplier",
+        "filters": {}
+    }
+
+    Mensagem: "Me mostra as categorias de calçados"
+    Resposta:
+    {
+        "type": "category",
+        "filters": {
+            "name__icontains": "calçados"
+        }
+    }
+
+    Mensagem: "Olá, quero ver o que tem no estoque"
+    Resposta:
+    {
+        "type": "inventory",
+        "filters": {}
+    }
+
+    Mensagem: "Como faço uma compra?"
+    Resposta:
+    {
+        "type": "unknown",
+        "filters": {}
+    }
+
+    Mensagem do usuário: "{message}"
+    Retorne apenas o JSON:
+"""
+
