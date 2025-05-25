@@ -9,7 +9,7 @@ PROMPT_DETECT_TYPE_MESSAGE = """
 
     Formato de saída JSON válido:
     {
-        "type": "product" | "category" | "brand" | "supplier" | "inventory" | "sale" | "unknown",
+        "type": "PRODUCT" | "CATEGORY" | "BRAND" | "SUPPLIER" | "INVENTORY" | "SALE" | "UNKNOWN",
         "filters": {
             "campo": "valor"
         }
@@ -20,33 +20,33 @@ PROMPT_DETECT_TYPE_MESSAGE = """
     Mensagem: "Quero ver todos os tênis da Nike"
     Resposta:
     {
-        "type": "product",
+        "type": "PRODUCT",
         "filters": {
             "title__icontains": "tênis",
-            "brand__name__icontains": "Nike"
+            "BRAND__name__icontains": "Nike"
         }
     }
 
     Mensagem: "Tem algo da Adidas?"
     Resposta:
     {
-        "type": "product",
+        "type": "PRODUCT",
         "filters": {
-            "brand__name__icontains": "Adidas"
+            "BRAND__name__icontains": "Adidas"
         }
     }
 
     Mensagem: "Quais são os fornecedores disponíveis?"
     Resposta:
     {
-        "type": "supplier",
+        "type": "SUPPLIER",
         "filters": {}
     }
 
     Mensagem: "Me mostra as categorias de calçados"
     Resposta:
     {
-        "type": "category",
+        "type": "CATEGORY",
         "filters": {
             "name__icontains": "calçados"
         }
@@ -55,14 +55,14 @@ PROMPT_DETECT_TYPE_MESSAGE = """
     Mensagem: "Olá, quero ver o que tem no estoque"
     Resposta:
     {
-        "type": "inventory",
+        "type": "INVENTORY",
         "filters": {}
     }
 
     Mensagem: "Como faço uma compra?"
     Resposta:
     {
-        "type": "unknown",
+        "type": "UNKNOWN",
         "filters": {}
     }
 
