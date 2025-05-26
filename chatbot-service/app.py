@@ -5,6 +5,7 @@ from services.agent import Agent
 
 from models.conversation_history import ConversationHistoryModel
 from utils.kind_message import MessageType
+from utils.messages import PROMPT_WELCOME_MESSAGE
 
 
 app = FastAPI()
@@ -36,24 +37,34 @@ async def root(request: Request):
     chat_history = ConversationHistoryModel.get_messages_by_chat_id(
         chat_id=chat_id
     )
+
     context_messages = [item.get("message") for item in chat_history] if chat_history else []
 
     agent = Agent()
     evolution = Evolution()
 
     detection_result = agent.detect_type_message(message=message)
-    custom_prompt = detection_result.get('output')
-    message_type = detection_result.get('type', MessageType.UNKNOWN)
 
-    if message_type == MessageType.UNKNOWN:
-        response_text = "Desculpe, não entendi sua mensagem. Você pode reformular?"
-    elif message_type == MessageType.FIRST_INTERACTION:
-        response_text = "Olá! Sou o assistente virtual da ZapStore. Posso te ajudar com nossos produtos!"
+    output_prompt = detection_result.get('output_prompt', None)
+    message_type = detection_result.get('type', MessageType.UNKNOWN.value)
+    filters = detection_result.get('filters', None)
+
+    if len(chat_history) == 0 and message_type == MessageType.UNKNOWN.value:
+
+        response_text = PROMPT_WELCOME_MESSAGE.format(author)
+
     else:
-        response_text = agent.invoke(
-            received_message=custom_prompt or message,
-            context=context_messages
-        )
+        context_data = {
+            'type': message_type,
+            'filters': filters,
+            'output_prompt': output_prompt,
+            'context_messages': context_messages
+        }
+
+
+        response_text = agent.invoke(message=message, data=context_data)
+
+        return response_text
 
     ConversationHistoryModel.create_message(
         chat_id=chat_id,
