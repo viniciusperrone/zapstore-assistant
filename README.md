@@ -23,6 +23,19 @@
 
 ## Funcionalidades
 
+- Listar produtos/categorias/marcas com filtros (via API);
+- Registrar saídas/entradas de produtos (via API);
+
+| Método | Endpoint               | Descrição                      |
+| ------ | ---------------------- | ------------------------------ |
+| GET    | `/api/v1/product`      | Lista produtos (com filtros)   |
+| POST   | `/api/v1/product`      | Cria um novo produto           |
+| GET    | `/api/v1/product/<id>` | Recupera um produto específico |
+| PUT    | `/api/v1/product/<id>` | Atualiza um produto            |
+| DELETE | `/api/v1/product/<id>` | Remove um produto              |
+| GET    | `/api/v1/all_data`     | Retorna todas as entidades     |
+
+
 ## Arquitetura
 
 ## Tecnologias
