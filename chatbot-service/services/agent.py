@@ -1,5 +1,4 @@
 import json
-import requests
 from typing import Dict, Any
 
 from openai import OpenAI
