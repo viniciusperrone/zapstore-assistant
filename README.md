@@ -19,7 +19,9 @@
 
 ## Sobre o ZapStore
 
-**ZapStore** é uma loja de tecnologia especializada na venda de hardware e periféricos.
+**ZapStore** é uma loja de tecnologia especializada na venda de hardware e periféricos. Ademais, fornece o atendimento
+automatizado e inteligente aos clientes sobre os produtos vendidos, utilizando um **chatbot via Whatsapp** conectado a base
+de dados da ZapStore.
 
 ## Funcionalidades
 
@@ -39,6 +41,8 @@
 ## Arquitetura
 
 ## Tecnologias
+
+## Contato
 
 [contributors-shield]: https://img.shields.io/github/contributors/viniciusperrone/zapstore-assistant?style=flat-square
 [contributors-url]: https://github.com/viniciusperrone/zapstore-assistant/graphs/contributors
