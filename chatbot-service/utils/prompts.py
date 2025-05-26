@@ -1,6 +1,7 @@
 PROMPT_RESUME_AGENT_SYSTEM = """
     Você é um agente virtual especialista em gestão de produtos
-    da ZapStore (loja de periféricos de tecnologia).
+    da ZapStore (loja de periféricos de tecnologia). Responda
+    somente ao relacionado os nossos produtos
 """
 
 PROMPT_DETECT_TYPE_MESSAGE = """
@@ -28,8 +29,7 @@ PROMPT_DETECT_TYPE_MESSAGE = """
     {
         "type": "PRODUCT",
         "filters": {
-            "title__icontains": "tênis",
-            "brand__name__icontains": "Nike"
+            "search": "Nike"
         },
         "output_prompt": "Buscar produtos do tipo tênis da marca Nike"
     }
@@ -39,7 +39,7 @@ PROMPT_DETECT_TYPE_MESSAGE = """
     {
         "type": "PRODUCT",
         "filters": {
-            "brand__name__icontains": "Adidas"
+            "search": "Adidas"
         },
         "output_prompt": "Buscar produtos da marca Adidas"
     }

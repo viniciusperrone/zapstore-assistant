@@ -6,7 +6,7 @@ from config.environments import API_URL
 class Catalog:
 
     def __init__(self):
-        self.__api_url = API_URL
+        self.__api_url = f'{API_URL}/api/v1'
 
     def __get(self, endpoint: str, params: dict | None = None):
         response = requests.get(f"{self.__api_url}/{endpoint}", params=params)
