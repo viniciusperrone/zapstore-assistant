@@ -21,7 +21,6 @@ class Catalog:
             params=filters
         )
 
-
     def get_brands(self, filters: dict = None):
         return self.__get(
             endpoint='brand',

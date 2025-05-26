@@ -10,6 +10,7 @@ from utils.messages import PROMPT_WELCOME_MESSAGE
 
 app = FastAPI()
 
+
 @app.post("/chatbot/assistant")
 async def root(request: Request):
     data = await request.json()
@@ -18,8 +19,11 @@ async def root(request: Request):
 
     is_group_message = '@g.us' in chat_id
 
-    if not 'data' in data:
-        return {'status': 'Success', 'message': 'Format unknown'}
+    if 'data' not in data:
+        return {
+            'status': 'Success',
+            'message': 'Format unknown'
+        }
 
     from_me = data['data']['key']['fromMe']
 
@@ -50,7 +54,7 @@ async def root(request: Request):
     filters = detection_result.get('filters', None)
 
     if message_type == MessageType.GREETING.value:
-         response_text = PROMPT_WELCOME_MESSAGE.format(author)
+        response_text = PROMPT_WELCOME_MESSAGE.format(author)
 
     elif len(chat_history) == 0 and message_type == MessageType.UNKNOWN.value:
 
