@@ -8,4 +8,5 @@ class MessageType(Enum):
     SUPPLIER = 'SUPPLIER'
     INVENTORY = 'INVENTORY'
     SALE = 'SALE'
+    GREETING = 'GREETING'
     UNKNOWN = 'UNKNOWN'
