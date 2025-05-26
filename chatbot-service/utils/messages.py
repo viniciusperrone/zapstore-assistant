@@ -10,5 +10,5 @@ consultar seu pedido ou tirar dúvidas. O que deseja hoje?
 """
 
 OUT_OF_SCOPE = """
-
+    Desculpe, não entendi sua mensagem. Você pode reformular?
 """
