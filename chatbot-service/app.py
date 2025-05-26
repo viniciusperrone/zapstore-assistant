@@ -49,7 +49,10 @@ async def root(request: Request):
     message_type = detection_result.get('type', MessageType.UNKNOWN.value)
     filters = detection_result.get('filters', None)
 
-    if len(chat_history) == 0 and message_type == MessageType.UNKNOWN.value:
+    if message_type == MessageType.GREETING.value:
+         response_text = PROMPT_WELCOME_MESSAGE.format(author)
+
+    elif len(chat_history) == 0 and message_type == MessageType.UNKNOWN.value:
 
         response_text = PROMPT_WELCOME_MESSAGE.format(author)
 
@@ -80,4 +83,8 @@ async def root(request: Request):
         number_contact=chat_id
     )
 
-    return {'status': 'Success', 'message': 'Message processed successfully'}
+    return {
+        'status': 'Success',
+        'client_message': message,
+        'response_text': response_text
+    }
