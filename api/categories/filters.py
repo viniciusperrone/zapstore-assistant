@@ -12,7 +12,6 @@ class CategoryFilter(filters.FilterSet):
             Q(name__icontains=value) | Q(description__icontains=value)
         )
 
-
     class Meta:
         model = Category
         fields = {

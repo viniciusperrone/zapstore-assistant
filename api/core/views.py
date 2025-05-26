@@ -39,7 +39,6 @@ def get_all_data(request):
 
         brands.append(brand_data)
 
-
     response_data = {
         'products': products,
         'categories': categories,

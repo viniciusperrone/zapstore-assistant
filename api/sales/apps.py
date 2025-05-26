@@ -7,4 +7,4 @@ class SalesConfig(AppConfig):
 
     def ready(self):
 
-        import sales.signals
+        import sales.signals # noqa: F401 E261

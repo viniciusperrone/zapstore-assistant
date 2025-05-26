@@ -3,6 +3,7 @@ from django.dispatch import receiver
 
 from sales.models import Sales
 
+
 @receiver(post_save, sender=Sales)
 def update_product_quantity(sender, instance, created, **kwargs):
     if created:
