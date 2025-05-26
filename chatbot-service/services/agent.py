@@ -58,6 +58,8 @@ class Agent:
         filters = data.get('filters', None)
         output_prompt = data.get('output_prompt', None)
         catalog_data: str = None
+        context_messages = data.get('context_messages', [])
+
         messages_prompt = []
 
         if message_type == MessageType.PRODUCT:
@@ -93,12 +95,20 @@ class Agent:
         if message_type == MessageType.UNKNOWN:
             return OUT_OF_SCOPE
 
-        system_prompt = f"{output_prompt}\n\nDados (a serem analisados): {catalog_data}"
+        system_prompt = f"{PROMPT_RESUME_AGENT_SYSTEM} \n\n{output_prompt}\n\nDados em formato json (a serem analisados): {catalog_data}"
 
         messages_prompt.append({
             'role': 'system',
             'content': system_prompt
         })
+
+        if context_messages:
+            historic_conversation = []
+
+            for conversation in context_messages:
+                historic_conversation.append(conversation)
+
+            messages_prompt.append({'role': 'system', 'content': f'Histórico de conversa: \n {str(conversation)}'})
 
         messages_prompt.append({
             'role': 'user',
@@ -110,7 +120,7 @@ class Agent:
             messages=messages_prompt
         )
 
-        return response
+        return response.choices[0].message.content
 
 
     def process_intent(self, message: str, intent_type: str):
