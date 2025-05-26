@@ -15,7 +15,7 @@ PROMPT_DETECT_TYPE_MESSAGE = """
     A resposta deve ser **exclusivamente** um JSON válido, no seguinte formato:
 
     {
-        "type": "PRODUCT" | "CATEGORY" | "BRAND" | "SUPPLIER" | "INVENTORY" | "SALE" | "UNKNOWN",
+        "type": "PRODUCT" | "CATEGORY" | "BRAND" | "SUPPLIER" | "INVENTORY" | "SALE" | "UNKNOWN" | "GREETING",
         "filters": {
             "campo": "valor"
         },
@@ -24,24 +24,34 @@ PROMPT_DETECT_TYPE_MESSAGE = """
 
     Exemplos:
 
-    Mensagem: "Quero ver todos os tênis da Nike"
+    Mensagem: "Quero ver todos o pc da Dell"
     Resposta:
     {
-        "type": "PRODUCT",
+        "type": "BRAND",
         "filters": {
-            "search": "Nike"
+            "search": "Dell"
         },
-        "output_prompt": "Buscar produtos do tipo tênis da marca Nike"
+        "output_prompt": "Buscar produtos do tipo computador da marca Dell"
     }
 
-    Mensagem: "Tem algo da Adidas?"
+    Mensagem: "Teria algum monitor no estoque?"
     Resposta:
     {
         "type": "PRODUCT",
         "filters": {
-            "search": "Adidas"
+            "search": "Monitor"
         },
-        "output_prompt": "Buscar produtos da marca Adidas"
+        "output_prompt": "Buscar produtos do tipo computador da marca Dell"
+    }
+
+    Mensagem: "Quais computadores tem?"
+    Resposta:
+    {
+        "type": "CATEGORY",
+        "filters": {
+            "search": "Computador"
+        },
+        "output_prompt": "Buscar produtos de Categoria de computador/notebook"
     }
 
     Mensagem: "Quais são os fornecedores disponíveis?"
@@ -76,6 +86,14 @@ PROMPT_DETECT_TYPE_MESSAGE = """
         "type": "UNKNOWN",
         "filters": {},
         "output_prompt": "Mensagem não relacionada a busca por produtos ou categorias"
+    }
+
+    Mensagem: "Olá, Boa tarde?"
+    Resposta:
+    {
+        "type": "GREETING",
+        "filters": null,
+        "output_prompt": null
     }
 
     Retorne apenas o JSON conforme o formato acima:

@@ -7,8 +7,8 @@ para melhor lhe atender.
 
 Agora, como podemos lhe ajudar? Posso te ajudar a encontrar um produto,
 consultar seu pedido ou tirar dúvidas. O que deseja hoje?
-"""
+""".strip()
 
 OUT_OF_SCOPE = """
     Desculpe, não entendi sua mensagem. Você pode reformular?
-"""
+""".strip()
