@@ -44,6 +44,8 @@ de dados da ZapStore.
 
 ## Contato
 
+Vinícius Perrone - [LinkedIn](https://www.linkedin.com/in/vinicius-perrone/) - perronevinicius2018@gmail.com
+
 [contributors-shield]: https://img.shields.io/github/contributors/viniciusperrone/zapstore-assistant?style=flat-square
 [contributors-url]: https://github.com/viniciusperrone/zapstore-assistant/graphs/contributors
 
