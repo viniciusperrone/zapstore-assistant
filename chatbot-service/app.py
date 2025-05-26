@@ -61,10 +61,7 @@ async def root(request: Request):
             'context_messages': context_messages
         }
 
-
         response_text = agent.invoke(message=message, data=context_data)
-
-        return response_text
 
     ConversationHistoryModel.create_message(
         chat_id=chat_id,
