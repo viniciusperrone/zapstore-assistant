@@ -13,6 +13,7 @@ from utils.prompts import (
 )
 from utils.messages import OUT_OF_SCOPE
 
+
 class Agent:
 
     def __init__(self) -> None:
@@ -20,7 +21,6 @@ class Agent:
         self.__client = OpenAI(
             api_key=OPENAI_API_KEY
         )
-
 
     def __invoke_llm(self, system_prompt, user_prompt):
         response = self.__client.chat.completions.create(
@@ -118,56 +118,6 @@ class Agent:
         response = self.__client.chat.completions.create(
             model='gpt-3.5-turbo',
             messages=messages_prompt
-        )
-
-        return response.choices[0].message.content
-
-
-    def process_intent(self, message: str, intent_type: str):
-        catalog_data = self.load_catalog_data()
-
-        if MessageType(intent_type) == MessageType.PRODUCTS:
-            prompt = f"Liste os produtos disponíveis com base nessa base de dados:\n\n{catalog_data}"
-
-        elif MessageType(intent_type) == MessageType.SPECIFIC_PRODUCT:
-            prompt = f"Com base na seguinte base de dados:\n\n{catalog_data}\n\nResponda à pergunta do usuário: {message}"
-
-        elif MessageType(intent_type) == MessageType.INFORMATION_ABOUT_BRANDS:
-            brands = list({item["brand"] for item in catalog_data})  # Extrai marcas únicas
-            prompt = f"Estas são as marcas disponíveis: {', '.join(brands)}.\nResponda de forma útil à pergunta: {message}"
-
-        elif MessageType(intent_type) == MessageType.CHEAPER_PRODUCTS:
-            sorted_data = sorted(catalog_data, key=lambda x: x["price"])
-            cheapest = sorted_data[:5]
-            prompt = f"Estes são os 5 produtos mais baratos:\n\n{cheapest}\n\nDê uma resposta amigável ao usuário."
-
-        else:
-            prompt = message
-
-        return self.__invoke_llm(system_prompt=PROMPT_RESUME_AGENT_SYSTEM, user_prompt=prompt)
-
-    def invokedede(
-        self,
-        received_message: str,
-        intent_type: str | None = None,
-        context: list[str] | None = None,
-    ) -> None:
-        messages = [
-            {
-                'role': 'system',
-                'content': PROMPT_RESUME_AGENT_SYSTEM
-            }
-        ]
-
-        if context:
-            for message in context:
-                messages.append({'role': 'user', 'content': message})
-
-        messages.append({'role': 'user', 'content': received_message})
-
-        response = self.__client.chat.completions.create(
-            model='gpt-3.5-turbo',
-            messages=messages
         )
 
         return response.choices[0].message.content
