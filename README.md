@@ -45,7 +45,7 @@ de dados da ZapStore.
 * Framework Backend: [FastAPI](https://fastapi.tiangolo.com/), [Django](https://www.djangoproject.com/)
 * Banco de dados: [PostgreSQL](https://www.postgresql.org/), [MongoDB](https://www.mongodb.com/)
 * Inteligência Artificial: [OpenAI](https://openai.com/api/)
-* API do Whatsapp:[Evolution API](https://doc.evolution-api.com/v1/pt/get-started/introduction)
+* API do Whatsapp: [Evolution API](https://doc.evolution-api.com/v1/pt/get-started/introduction)
 
 ## Contato
 
