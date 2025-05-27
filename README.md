@@ -42,6 +42,11 @@ de dados da ZapStore.
 
 ## Tecnologias
 
+* Framework Backend: [FastAPI](https://fastapi.tiangolo.com/), [Django](https://www.djangoproject.com/)
+* Banco de dados: [PostgreSQL](https://www.postgresql.org/), [MongoDB](https://www.mongodb.com/)
+* Inteligência Artificial: [OpenAI](https://openai.com/api/)
+* API do Whatsapp:[Evolution API](https://doc.evolution-api.com/v1/pt/get-started/introduction)
+
 ## Contato
 
 Vinícius Perrone - [LinkedIn](https://www.linkedin.com/in/vinicius-perrone/) - perronevinicius2018@gmail.com
