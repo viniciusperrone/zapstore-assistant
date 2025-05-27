@@ -25,20 +25,29 @@ de dados da ZapStore.
 
 ## Funcionalidades
 
-- Listar produtos/categorias/marcas com filtros (via API);
-- Registrar saídas/entradas de produtos (via API);
+- Listagem de produtos, categorias e marcas com filtros dinâmicos;
+- Registro de entradas e saídas de produtos no estoque;
+- Atendimento automatizado via chatbot conectado à base de dados.
+
 
 | Método | Endpoint               | Descrição                      |
 | ------ | ---------------------- | ------------------------------ |
 | GET    | `/api/v1/product`      | Lista produtos (com filtros)   |
-| POST   | `/api/v1/product`      | Cria um novo produto           |
 | GET    | `/api/v1/product/<id>` | Recupera um produto específico |
-| PUT    | `/api/v1/product/<id>` | Atualiza um produto            |
-| DELETE | `/api/v1/product/<id>` | Remove um produto              |
+| GET    | `/api/v1/category`     | Lista categorias (com filtros) |
+| GET    | `/api/v1/brand/`       | Lista marcas (com filtros)     |
 | GET    | `/api/v1/all_data`     | Retorna todas as entidades     |
 
 
 ## Arquitetura
+
+O sistema da ZapStore é composto por dois principais componentes:
+
+1. **API Backend**
+   Desenvolvida com `Django` e `PostgreSQL`, é responsável por armazenar e gerenciar os dados da loja (produtos, categorias, marcas etc.).
+
+2. Serviço de Chatbot
+   Um microsserviço criado com `FastAPI`, responsável pela lógica de atendimento e comunicação entre o cliente e o agente inteligente. Esse serviço consulta a API da ZapStore para fornecer     respostas precisas e personalizadas via WhatsApp.
 
 ## Tecnologias
 
