@@ -4,7 +4,8 @@ from django.core.exceptions import ValidationError
 
 class Customer(models.Model):
     name = models.CharField(max_length=255)
-    tax_document = models.CharField(max_length=11)
+    email = models.CharField(max_length=125, unique=True)
+    tax_document = models.CharField(max_length=11, unique=True)
     address = models.TextField()
     city = models.CharField(max_length=555)
     state = models.CharField(max_length=555)
