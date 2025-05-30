@@ -4,6 +4,7 @@ from django.urls import path, include
 from utils.api import BASIC_API_URL
 from core.views import get_all_data
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 

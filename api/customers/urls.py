@@ -1,9 +1,9 @@
 from django.urls import path
 
 from customers.views import CustomerListCreateAPIView
-from utils.api import CustomerListCreateAPIView
+from utils.api import BASIC_API_URL
 
 
 urlpatterns = [
-    path(f'{CustomerListCreateAPIView}/customer', CustomerListCreateAPIView.as_view(), name='customer-list-create-api-view')
+    path(f'{BASIC_API_URL}/customer', CustomerListCreateAPIView.as_view(), name='customer-list-create-api-view')
 ]
