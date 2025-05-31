@@ -15,6 +15,7 @@ urlpatterns = [
     path('', include('inventory.urls')),
     path('', include('sales.urls')),
     path('', include('customers.urls')),
+    path('', include('orders.urls')),
 
     path(f'{BASIC_API_URL}/all_data', get_all_data, name='get-all-data')
 ]
