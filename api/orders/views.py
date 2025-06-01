@@ -21,7 +21,6 @@ class OrderListCreateAPIView(generics.ListCreateAPIView):
 class OrderDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    permission_classes = [IsAuthenticated]
 
     def perform_update(self, serializer):
         order = self.get_object()
