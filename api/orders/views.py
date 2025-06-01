@@ -11,16 +11,11 @@ from datetime import timedelta
 class OrderListCreateAPIView(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         expiration_time = timezone.now() + timedelta(hours=1)
 
         serializer.save(expiration_time=expiration_time)
-
-    def get_queryset(self):
-
-        return Order.objects.filter(customer=self.request.user)
 
 
 class OrderDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
