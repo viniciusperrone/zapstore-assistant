@@ -1,9 +1,21 @@
 version: '3.8'
 
 services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: zapstore-api
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    networks:
+      - zapstore-network
+
   db:
     image: postgres:latest
-    container_name: postgres_db
+    container_name: zapstore-postgres
     restart: always
     environment:
       POSTGRES_DB: mydatabase
@@ -13,6 +25,12 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - zapstore-network
 
 volumes:
   postgres_data:
+
+networks:
+  zapstore-network:
+    driver: bridge
