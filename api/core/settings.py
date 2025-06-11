@@ -27,7 +27,8 @@ INSTALLED_APPS = [
     'inventory',
     'sales',
     'customers',
-    'orders'
+    'orders',
+    'seed'
 ]
 
 REST_FRAMEWORK = {
