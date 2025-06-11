@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile.api
     container_name: zapstore-api
     ports:
-      - 8000:8000
+      - "8000:8000"
     volumes:
       - .:/app
     depends_on:
@@ -27,6 +27,48 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - zapstore-network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: zapstore-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: zapstore
+      RABBITMQ_DEFAULT_PASS: zapstore
+    networks:
+      - zapstore-network
+
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: zapstore-celery
+    command: celery -A core worker -l info
+    volumes:
+      - .:/app
+    depends_on:
+      - rabbitmq
+    environment:
+      - CELERY_BROKER_URL=amqp://zapstore:zapstore@rabbitmq:5672//
+    networks:
+      - zapstore-network
+
+  celery-beat:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: zapstore-celery-beat
+    command: celery -A core beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    volumes:
+      - .:/app
+    depends_on:
+      - rabbitmq
+    environment:
+      - CELERY_BROKER_URL=amqp://zapstore:zapstore@rabbitmq:5672//
     networks:
       - zapstore-network
 
