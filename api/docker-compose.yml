@@ -59,22 +59,6 @@ services:
     networks:
       - zapstore-network
 
-  celery-beat:
-    build:
-      context: .
-      dockerfile: Dockerfile.api
-    container_name: zapstore-celery-beat
-    command: celery -A core beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
-    volumes:
-      - .:/app
-    depends_on:
-      - api
-      - rabbitmq
-    environment:
-      - CELERY_BROKER_URL=amqp://zapstore:zapstore@rabbitmq:5672//
-    networks:
-      - zapstore-network
-
   flower:
     image: mher/flower
     container_name: zapstore-flower

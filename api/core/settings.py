@@ -19,7 +19,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_filters',
-    'django_celery_beat',
 
     'categories',
     'brands',
@@ -128,17 +127,13 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Celery configurações básicas (RabbitMQ como broker)
 CELERY_BROKER_URL = 'amqp://zapstore:zapstore@rabbitmq:5672//'
 
-# Salva resultados das tasks (opcional)
 CELERY_RESULT_BACKEND = 'rpc://'
 
-# Outros opcionais úteis
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
-# Caso use timezone no Django
 CELERY_TIMEZONE = TIME_ZONE
 
