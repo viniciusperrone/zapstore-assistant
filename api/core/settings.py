@@ -1,5 +1,4 @@
 from pathlib import Path
-from celery.schedules import crontab
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -130,7 +129,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Celery configurações básicas (RabbitMQ como broker)
-CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672//'
+CELERY_BROKER_URL = 'amqp://zapstore:zapstore@rabbitmq:5672//'
 
 # Salva resultados das tasks (opcional)
 CELERY_RESULT_BACKEND = 'rpc://'
@@ -143,9 +142,3 @@ CELERY_RESULT_SERIALIZER = 'json'
 # Caso use timezone no Django
 CELERY_TIMEZONE = TIME_ZONE
 
-CELERY_BEAT_SCHEDULE = {
-    'expire-pending-orders-every-5-minutes': {
-        'task': 'orders.tasks.expire_pending_orders',
-        'schedule': crontab(minute='*/5'),
-    },
-}

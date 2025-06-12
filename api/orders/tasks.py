@@ -5,11 +5,12 @@ from orders.models import Order
 
 
 @shared_task
-def expire_pending_orders():
-    now = timezone.now()
+def expire_order(order_id):
+    try:
+        order = Order.objects.get(id=order_id)
 
-    expired_orders = Order.objects.filter(status='pending', expiration_time__lt=now)
-
-    for order in expired_orders:
-        order.status = 'expired'
-        order.save()
+        if order.status == 'pending':
+            order.status = 'expired'
+            order.updated_at = timezone.now()
+    except:
+        pass
