@@ -13,5 +13,5 @@ def expire_order(order_id):
             order.status = 'expired'
             order.updated_at = timezone.now()
             order.save()
-    except:
-        pass
+    except Exception as err:
+        print(str(err))

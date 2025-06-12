@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-
 from orders.models import Order, OrderItem
+
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:

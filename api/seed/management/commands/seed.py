@@ -9,6 +9,8 @@ from products.models import Product
 """
     Populates the database with initial data on brands, categories and products.
 """
+
+
 class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):

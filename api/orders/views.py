@@ -48,6 +48,7 @@ def confirm_order(request, pk):
     order.confirm_order()
     return Response(OrderSerializer(order).data, status=status.HTTP_200_OK)
 
+
 @api_view(['PUT'])
 def cancel_order(request, pk):
     try:
@@ -57,4 +58,3 @@ def cancel_order(request, pk):
 
     order.cancel_order()
     return Response(OrderSerializer(order).data, status=status.HTTP_200_OK)
-

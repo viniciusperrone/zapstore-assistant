@@ -7,6 +7,7 @@ from orders.tasks import expire_order
 
 EXPIRATION_TIME = 60 * 5
 
+
 @receiver(post_save, sender=Order)
 def schedule_order_expiration(sender, instance, created, **kwargs):
     if created:
