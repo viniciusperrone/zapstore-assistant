@@ -12,5 +12,6 @@ def expire_order(order_id):
         if order.status == 'pending':
             order.status = 'expired'
             order.updated_at = timezone.now()
+            order.save()
     except:
         pass
