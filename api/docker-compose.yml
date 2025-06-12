@@ -71,6 +71,16 @@ services:
       - CELERY_BROKER_URL=amqp://zapstore:zapstore@rabbitmq:5672//
     networks:
       - zapstore-network
+  flower:
+    image: mher/flower
+    container_name: zapstore-flower
+    command: celery flower --broker=amqp://zapstore:zapstore@rabbitmq:5672//
+    ports:
+      - "5555:5555"
+    depends_on:
+      - rabbitmq
+    networks:
+      - zapstore-network
 
 volumes:
   postgres_data:
