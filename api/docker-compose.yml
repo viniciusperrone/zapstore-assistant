@@ -51,8 +51,10 @@ services:
     volumes:
       - .:/app
     depends_on:
+      - api
       - rabbitmq
     environment:
+      - CELERY_APP=core
       - CELERY_BROKER_URL=amqp://zapstore:zapstore@rabbitmq:5672//
     networks:
       - zapstore-network
@@ -66,11 +68,13 @@ services:
     volumes:
       - .:/app
     depends_on:
+      - api
       - rabbitmq
     environment:
       - CELERY_BROKER_URL=amqp://zapstore:zapstore@rabbitmq:5672//
     networks:
       - zapstore-network
+
   flower:
     image: mher/flower
     container_name: zapstore-flower

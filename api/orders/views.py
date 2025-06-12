@@ -12,7 +12,7 @@ class OrderListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
 
     def perform_create(self, serializer):
-        expiration_time = timezone.now() + timedelta(hours=1)
+        expiration_time = timezone.now() + timedelta(minutes=2)
 
         serializer.save(expiration_time=expiration_time)
 
